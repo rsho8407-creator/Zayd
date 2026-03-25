@@ -1,0 +1,65 @@
+}
+    }, {
+      "listen": null,
+      "port": 1001,
+      "protocol": "vless",
+      "settings": {
+        "clients": [{
+            "id": "d2cb8181-233c-4d18-9972-8a1b04db0344",
+            "alterId": 2
+          }
+        ],
+        "decryption": "none",
+        "fallbacks": []
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "path": "/wsl",
+          "headers": {}
+        }
+      },
+      "tag": "my-vibe",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      }
+    }
+  ],
+  "outbounds": [{
+      "protocol": "freedom",
+      "settings": {}
+    }, {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "blocked"
+    }
+  ],
+  "policy": {
+    "system": {
+      "statsInboundDownlink": true,
+      "statsInboundUplink": true
+    }
+  },
+  "transport": null,
+  "routing": {
+    "rules": [{
+        "type": "field",
+        "inboundTag": ["api"],
+        "outboundTag": "api"
+      }, {
+        "type": "field",
+        "ip": ["geoip:private"],
+        "outboundTag": "blocked"
+      }, {
+        "type": "field",
+        "protocol": ["bittorrent"],
+        "outboundTag": "blocked"
+      }
+    ]
+  }
+}
